@@ -1,4 +1,4 @@
-﻿@model ProjectFuchsia.Entities.Challenge
+﻿@model ProjectFuchsia.Models.Challenge
 
 @{
     Layout = null;
@@ -38,7 +38,7 @@
                 @Html.EditorFor(model => model.Points)
                 @Html.ValidationMessageFor(model => model.Points)
             </div>
-    
+            @Html.DropDownListFor(x => x.Category, Model.Categories)
             <p>
                 <input type="submit" value="Create" />
             </p>

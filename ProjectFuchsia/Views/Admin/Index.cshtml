@@ -1,17 +1,14 @@
-﻿@{
-    Layout = null;
+﻿@using ProjectFuchsia.Models
+@model List<Challenge>
+
+@if (Model.Any())
+{
+    <ul>
+        @foreach (Challenge challenge in Model)
+        {
+            <li>@challenge.Text | @challenge.Points | @challenge.Category</li>
+        }
+    </ul>
+    
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div>
-        
-    </div>
-</body>
-</html>
+@Html.ActionLink("Add Challenge", "AddChallenge")

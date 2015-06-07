@@ -1,7 +1,9 @@
-﻿using ProjectFuchsia.Entities;
+﻿using ProjectFuchsia.Core;
+using ProjectFuchsia.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,19 +16,25 @@ namespace ProjectFuchsia.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            //get all challenges from database
+            var model = new List<Challenge>();
+            model = RavenService.GetAllChallenges(RavenSession);
+            return View(model);
         }
 
         public ActionResult AddChallenge()
         {
-            return View();
+            var model = new Challenge();
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult AddChallenge(Challenge challenge)
         {
-            RavenSession.Store(challenge);
-            return View();
+
+            RavenService.SaveChallenge(RavenSession, challenge);
+
+            return RedirectToAction("Index");
         }
 
     }

@@ -17,10 +17,41 @@ namespace ProjectFuchsia.Core
 
         }
 
-        public static List<Challenge> GetAllChallenges(Raven.Client.IDocumentSession session)
+        public static List<Challenge> GetAllChallenges(IDocumentSession session)
         {
             return session.Query<Challenge>().OrderByDescending(m => m.Text).ToList();
 
+        }
+
+        public static User GetUser(IDocumentSession session, string name)
+        {
+            return session.Query<User>().Where(m => m.UserName == name.ToLower()).FirstOrDefault();
+        }
+
+        public static User CreateUser(IDocumentSession session, string name)
+        {
+            var user = new User { 
+                UserName = name.ToLower()
+            };
+
+            session.Store(user);
+            session.SaveChanges();
+
+            return user;
+        }
+
+        public static User UpdateUser(IDocumentSession session, string name)
+        {
+            User user = session.Load<User>("users/" + name);
+            if (user.CompletedChallenges == null)
+            {
+                user.CompletedChallenges = new List<string>();
+            }
+
+            //user.Score = user.Score + 7;
+            session.SaveChanges();
+
+            return user;
         }
     }
 }

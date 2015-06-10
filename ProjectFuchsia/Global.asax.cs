@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using ProjectFuchsia.Models;
 using Raven.Client;
 using Raven.Client.Document;
 using System;
@@ -31,6 +32,9 @@ namespace ProjectFuchsia
             Store = new DocumentStore() { ConnectionStringName = "ProjectFuchsia" };
             Store.Initialize();
             var builder = new ContainerBuilder();
+
+            Store.Conventions.RegisterIdConvention<User>((dbname, commands, user) => "users/" + user.UserName);
+
             builder.Register(c =>
             {
                 IDocumentStore store = new DocumentStore

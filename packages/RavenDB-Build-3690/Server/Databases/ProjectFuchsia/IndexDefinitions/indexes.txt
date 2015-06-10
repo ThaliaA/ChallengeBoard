@@ -1,2 +1,0 @@
-2 - Auto/Challenges/ByTextSortByText
-1 - Raven/DocumentsByEntityName

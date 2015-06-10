@@ -1,17 +1,7 @@
-﻿@{
-    Layout = null;
-}
+﻿@model ProjectFuchsia.Models.User
 
-<!DOCTYPE html>
+<span>Välkommen </span>@Model.UserName
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div>
-        
-    </div>
-</body>
-</html>
+<span>Du har @Model.Score poäng.</span>
+
+<span>Antal färdiga utmaningar är: @(Model.CompletedChallenges != null ? Model.CompletedChallenges.Count : 0)</span>
